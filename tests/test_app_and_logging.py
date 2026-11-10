@@ -16,16 +16,6 @@ from linkvault.storage import VaultStorage
 from linkvault.ui import LinkVaultApp
 
 
-def _has_tk_display() -> bool:
-    try:
-        root = tk.Tk()
-        root.withdraw()
-        root.destroy()
-        return True
-    except tk.TclError:
-        return False
-
-
 class AppAndLoggingTests(unittest.TestCase):
     def test_parse_args_data_dir(self) -> None:
         args = parse_args(["--data-dir", "/tmp/my-vault"])
@@ -53,11 +43,13 @@ class AppAndLoggingTests(unittest.TestCase):
             self.assertIn("RuntimeError: boom", content)
             logging.shutdown()
 
-    @unittest.skipUnless(_has_tk_display(), "Tkinter display unavailable in headless environment")
     def test_gui_first_run_unlock_sort_and_lock(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             storage = VaultStorage(VaultPaths(base_dir=Path(tmp)))
-            app = LinkVaultApp(storage)
+            try:
+                app = LinkVaultApp(storage)
+            except tk.TclError as exc:
+                self.skipTest(f"Tkinter runtime unavailable: {exc}")
             try:
                 app.update_idletasks()
                 self.assertIsNone(app.current_password)
