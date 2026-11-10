@@ -130,9 +130,8 @@ class CryptoTests(unittest.TestCase):
             {"version": 2, "kdf_iters": 1000, "salt": "AAAA", "ciphertext": "AAAA", "nonce": "AAAA", "cipher": "rot13"},
         ]
         for packet in bad_packets:
-            with self.subTest(packet=packet):
-                with self.assertRaises(CorruptVault):
-                    decrypt_packet(packet, "password123")
+            with self.subTest(packet=packet), self.assertRaises(CorruptVault):
+                decrypt_packet(packet, "password123")
 
 
 if __name__ == "__main__":
