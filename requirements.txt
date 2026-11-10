@@ -1,0 +1,3 @@
+# Recommended for hardware-accelerated AES-256-GCM encryption.
+# LinkVault automatically falls back to HMAC-SHA256-CTR if not installed.
+cryptography>=42.0.0

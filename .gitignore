@@ -1,0 +1,41 @@
+# LinkVault local vault data, backups, exports, and logs (NEVER commit user secrets)
+*.enc
+*.enc.*
+*.bak
+*.tmp
+*.log
+*.lnk
+*linkvault_export*.json
+*linkvault_export*.csv
+
+# Python byte-compiled / caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging & build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+wheels/
+
+# Virtual environments & local config
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Test & linter caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
